@@ -1,6 +1,8 @@
+from cnn import Net
+import utils
 
 #Compute Weighted Linear Regression (LIME with linear regressor
-def hat_beta_n(x, net, d, n=10000):
+def hat_beta_n(x, net: Net, d, n=10000):
 
   #get original prediction
   x_out = net(x.view(1,1,28,28))

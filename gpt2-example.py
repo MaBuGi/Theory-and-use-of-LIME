@@ -50,3 +50,15 @@ def LIME_TEXT(model, token, feature_names, Z, model_regressor,
   reg = model_regressor.fit(Z, y, sample_weight=weights)
   print_results(feature_names, reg, Z, y, weights)
   return
+
+
+#EXAMPLE 1: RANDOM DESIGN Z, Attention LIME
+Z = stats.bernoulli.rvs(0.5, size=(n,d), random_state=7)
+Z[0] = np.ones(d)
+
+token = tokenizer([sentence]*n, return_tensors="pt")
+token["attention_mask"] = torch.from_numpy(Z)
+
+#Linear Regression (no interaction)
+LIME_TEXT(model, token, words, Z, LinearRegression(fit_intercept=True))
+
